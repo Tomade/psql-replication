@@ -3,23 +3,31 @@ services:
   db-primary:
     hostname: primary
     container_name: primary
-    image: "my_postgres"
+    image: primary
     volumes:
       - vol-primary:/var/lib/postgresql/data
       - vol-archive:/archive
   db-standby:
     hostname: standby
     container_name: standby
-    image: "my_postgres"
+    image: standby
     volumes:
       - vol-standby:/var/lib/postgresql/data
       - vol-archive:/archive
-  postclient:
-    hostname: client
-    container_name: client
-    image: "postclient"
+#  postclient:
+#    hostname: client
+#    container_name: client
+#    image: "postclient"
+#    stdin_open: true
+#    tty: true
+  sysadm:
+    hostname: sysadm
+    container_name: sysadm
+    image: debian
     stdin_open: true
     tty: true
+    volumes:
+      - vol-archive:/archive
 
 volumes:
   vol-primary:
