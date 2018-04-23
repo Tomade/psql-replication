@@ -24,4 +24,4 @@ c = db.cursor()
 
 for _ in range(2000000):
     c.execute('insert into foo (dtm_created) values (current_timestamp )')
-    sleep(0.1)
+    # sleep(0.1)

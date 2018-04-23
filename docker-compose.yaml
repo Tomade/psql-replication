@@ -1,32 +1,54 @@
 version: '3'
 services:
+
   db-primary:
     hostname: primary
     container_name: primary
     image: primary
+    build:
+      dockerfile: postgres.dockerfile
+      context: .
+      args:
+        role: "primary"
     volumes:
       - vol-primary:/var/lib/postgresql/data
       - vol-archive:/archive
+
   db-standby:
     hostname: standby
     container_name: standby
     image: standby
+    build:
+      dockerfile: postgres.dockerfile
+      context: .
+      args:
+        role: "standby"
     volumes:
       - vol-standby:/var/lib/postgresql/data
       - vol-archive:/archive
-#  postclient:
-#    hostname: client
-#    container_name: client
-#    image: "postclient"
-#    stdin_open: true
-#    tty: true
+
+  client:
+    hostname: client
+    container_name: client
+    image: client
+    build:
+      dockerfile: client.dockerfile
+      context: .
+    stdin_open: true
+    tty: true
+
   sysadm:
     hostname: sysadm
     container_name: sysadm
-    image: debian
+    image: sysadm
+    build:
+      dockerfile: sysadm.dockerfile
+      context: .
     stdin_open: true
     tty: true
     volumes:
+      - vol-primary:/primary
+      - vol-standby:/standby
       - vol-archive:/archive
 
 volumes:
