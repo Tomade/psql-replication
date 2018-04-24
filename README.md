@@ -4,19 +4,30 @@ A. OBJECTIVES:
  2. Set up asynchronous warm stand-by, demonstrate failover with promotion
  3. Set up asynchronous hot stand-by, demonstrate R/O access with promotion
 
+B. PREREQUISITES
+
+This tutorial requires a local Docker environment, inclusive of `docker-compose`
+
+
 B. STEPS
 1. PITR setup
-    - deploy instance with default config
-    - set up WAL archiving, creating separate volume, modifying config and restarting
-    - run a base backup (with "recovery.conf" option)
-    - load test database: observe WAL log files being archived
-    - make note of the current time
-    - delete some rows in the middle of the foo table
-    - stop server
-    - manually restore the base backup, check recovery.conf
-    - modify recovery.conf to execute a PITR recovery
-    - restart server, observe recovery, check rows
-    - notice that recovery.conf gets renamed
+    1. deploy instance with default config, connect & disconnect, bring it down
+                
+            docker-compose up --build -d
+            docker-compose exec primary psql
+            ^D
+            docker-compose down -v            
+            
+    2. set up WAL archiving, creating separate volume, modifying config and restarting
+    3. run a base backup (with "recovery.conf" option)
+    4. load test database: observe WAL log files being archived
+    5. make note of the current time
+    6. delete some rows in the middle of the foo table
+    7. stop server
+    8. manually restore the base backup, check recovery.conf
+    9. modify recovery.conf to execute a PITR recovery
+    10. restart server, observe recovery, check rows
+    11. notice that recovery.conf gets renamed
      
 2. Warm stand-by setup
     - create new volume for a standby and restore the base backup from the primary
