@@ -10,9 +10,11 @@ B. STEPS
     - set up WAL archiving, creating separate volume, modifying config and restarting
     - run a base backup (with "recovery.conf" option)
     - load test database: observe WAL log files being archived
-    - make note of a restore time a few rows before the last
-    - nuke server in some bloody way, then stop it
+    - make note of the current time
+    - delete some rows in the middle of the foo table
+    - stop server
     - manually restore the base backup, check recovery.conf
+    - modify recovery.conf to execute a PITR recovery
     - restart server, observe recovery, check rows
     - notice that recovery.conf gets renamed
      
