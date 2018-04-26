@@ -1,43 +1,28 @@
-A. OBJECTIVES:
+# Introduction to PostgreSQL replication
 
- 1. Enable PITR (point in time recovery) and demonstrate restore on a single server
- 2. Set up asynchronous warm stand-by, demonstrate failover with promotion
- 3. Set up asynchronous hot stand-by, demonstrate R/O access with promotion
+This tutorial will guide you through a progressive series of steps, illustrating how to go from a stock single-server
+ installation of PostgreSQL 9.6.8 to a fully real-time replicated two-server setup, with sub-second propagation times. 
+In the process, we will also show how to enable Point-In-Time-Recovery (PITR) restore capabilities, which allow us to
+ go back in time at an arbitrary point.
+  
+ 
+ ## Prerequisites
+-  You will need a current version of [Docker](https://store.docker.com/search?type=edition&offering=community) 
+ installed on your workstation, inclusive of ```docker-compose```. Download it, install it and get it running. The 
+ ```docker-compose```utility is typically bundled with the base distribution, Mac users can also install it with 
+ Homebrew.
 
-B. PREREQUISITES
+- Clone this repository into a new directory to immediately have access to the various PostgreSQL 
+configuration files, and the various Docker files used to generate and run the container images used in this 
+tutorial.
+    
+- Keep this window open and navigate the tutorial following the links in it, while keeping a terminal window open 
+with an administrative shell ready for commands, after changing directory to where you cloned the repository.
 
-This tutorial requires a local Docker environment, inclusive of `docker-compose`
+Next: [Run single PostgreSQL with stock configuration](docs/01.md)
+    
 
 
-B. STEPS
-1. PITR setup
-    1. deploy instance with default config, connect & disconnect, bring it down
-                
-            docker-compose up --build -d
-            docker-compose exec primary psql
-            ^D
-            docker-compose down -v            
-            
-    2. set up WAL archiving, creating separate volume, modifying config and restarting
-    3. run a base backup (with "recovery.conf" option)
-    4. load test database: observe WAL log files being archived
-    5. make note of the current time
-    6. delete some rows in the middle of the foo table
-    7. stop server
-    8. manually restore the base backup, check recovery.conf
-    9. modify recovery.conf to execute a PITR recovery
-    10. restart server, observe recovery, check rows
-    11. notice that recovery.conf gets renamed
-     
-2. Warm stand-by setup
-    - create new volume for a standby and restore the base backup from the primary
-    - check recovery.conf, include connection info
-    - deploy new instance 
-    - observe sync
-    - insert new rows, observe quick replication
-    - notice that recovery.conf remains in place
 
-3. Hot stand-by setup
-    - edit postgresql.conf to change operating mode to hot-standby
-    - bounce server
-    - follow log, notice server going to read-only mode
+
+

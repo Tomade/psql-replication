@@ -1,0 +1,13 @@
+version: '3'
+services:
+  primary:
+    hostname: primary
+    container_name: primary
+    image: primary
+    build:
+      dockerfile: postgres-default.dockerfile
+      context: .
+    volumes:
+      - vol-primary:/var/lib/postgresql/data
+volumes:
+  vol-primary:
