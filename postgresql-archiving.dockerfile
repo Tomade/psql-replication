@@ -4,4 +4,5 @@ RUN apt-get -y install vim less
 RUN (echo "alias 'l=ls -l'" && echo "shopt -s autocd") >> /etc/bash.bashrc
 ENV PGUSER=postgres
 COPY postgresql-archiving.conf /etc/postgresql/postgresql.conf
+RUN mkdir /archive && chown postgres /archive
 CMD ["postgres", "-c", "config_file=/etc/postgresql/postgresql.conf"]
