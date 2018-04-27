@@ -5,9 +5,11 @@ services:
     container_name: primary
     image: primary
     build:
-      dockerfile: postgresql-default.dockerfile
+      dockerfile: postgresql-archiving.dockerfile
       context: .
     volumes:
       - vol-primary:/var/lib/postgresql/data
+      - vol-archive:/archive
 volumes:
   vol-primary:
+  vol-archive:
