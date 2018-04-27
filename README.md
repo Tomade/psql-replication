@@ -6,10 +6,10 @@ In the process, we will also show how to enable Point-In-Time-Recovery (PITR) re
  go back in time at an arbitrary point.
   
  
- ## Prerequisites
+## Prerequisites
 -  You will need a current version of [Docker](https://store.docker.com/search?type=edition&offering=community) 
- installed on your workstation, inclusive of ```docker-compose```. Download it, install it and get it running. The 
- ```docker-compose```utility is typically bundled with the base distribution, Mac users can also install it with 
+ installed on your workstation, inclusive of `docker-compose`. Download it, install it and get it running. The 
+ `docker-compose` utility is typically bundled with the base distribution, Mac users can also install it with
  Homebrew.
 
 - Clone this repository into a new directory to immediately have access to the various PostgreSQL 
