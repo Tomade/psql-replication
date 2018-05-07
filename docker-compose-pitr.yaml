@@ -1,0 +1,17 @@
+version: '3'
+services:
+  primary:
+    hostname: primary
+    container_name: primary
+    image: primary
+    build:
+      dockerfile: postgresql-pitr.dockerfile
+      context: .
+    volumes:
+      - vol-primary:/var/lib/postgresql/data
+      - vol-archive:/archive
+      - vol-backup:/backup
+volumes:
+  vol-primary:
+  vol-archive:
+  vol-backup:
